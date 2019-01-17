@@ -1,26 +1,24 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = { input: null };
+    state = { term: '' };
 
-    onInputChange(event) {
-        console.log(event.target.value);
-        this.setState({ input: event.target.value });
-    }
-    
-    onInputClick(event) {
-        console.log(event.target);
+    onFormSubmit = event => {
+        event.preventDefault();
+        // arrow function automatically bind!!
+        console.log(this.state.term);
     }
 
     render() {
         return (
             <div className="ui segment">
-                <form className="ui form">
+                <form className="ui form" onSubmit={this.onFormSubmit}>
                     <div className="field">
                         <label>Image Search</label>
                         <input type="text"
                             onClick={this.onInputClick}
-                            onChange={this.onInputChange} />
+                            // or, this will be same work
+                            onChange={ e => this.setState({ term: e.target.value })} />
                     </div>
                 </form>
             </div>
