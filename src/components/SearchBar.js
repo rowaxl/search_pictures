@@ -1,12 +1,17 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props = props;
+    }
+
     state = { term: '' };
 
     onFormSubmit = event => {
         event.preventDefault();
-        // arrow function automatically bind!!
-        console.log(this.state.term);
+        
+        this.props.onSubmit(this.state.term);
     }
 
     render() {
@@ -16,7 +21,6 @@ class SearchBar extends React.Component {
                     <div className="field">
                         <label>Image Search</label>
                         <input type="text"
-                            onClick={this.onInputClick}
                             // or, this will be same work
                             onChange={ e => this.setState({ term: e.target.value })} />
                     </div>
