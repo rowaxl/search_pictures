@@ -10,7 +10,7 @@ class ImageList extends React.Component {
     render() {
         return (
             <div className="ui container" style={{ marginTop: "10px", display: "grid" }}>
-                { this.props.images.map(image => <Image src={image.urls.regular} />) }
+                {this.props.images.map(image => <Image src={image.urls.regular} key={image.id} />)}
             </div>
         );
     }
