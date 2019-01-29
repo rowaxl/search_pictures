@@ -3,14 +3,13 @@ import React from 'react';
 class Image extends React.Component {
     constructor(props) {
         super(props);
-        this.src = props.src;
+        this.props = props;
     }
 
     render() {
-        console.log(this.props.src)
         return (
             <picture>
-                <img style={imageStyle} src={this.props.src} alt="failed to render" />
+                <img style={imageStyle} src={this.props.source.urls.regular} alt={this.props.source.description} />
             </picture>
         )
     }
