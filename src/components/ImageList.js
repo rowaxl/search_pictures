@@ -8,9 +8,13 @@ class ImageList extends React.Component {
     }
 
     render() {
+        const imageList = this.props.images.map(
+            image => <ImageCard source={image} key={image.id} />
+        );
+
         return (
             <div className="ui container" style={imageListStyle}>
-                {this.props.images.map(image => <ImageCard source={image} key={image.id} />)}
+                {imageList}
             </div>
         );
     }
@@ -19,9 +23,9 @@ class ImageList extends React.Component {
 const imageListStyle = {
     marginTop: "10px",
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-    gridGap: "0px 10px",
-    gridAutoRows: "10px"
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    gridGap: "0px 5px",
+    gridAutoRows: "2px"
 }
 
 export default ImageList;
