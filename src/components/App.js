@@ -41,7 +41,7 @@ class App extends React.Component {
                             Found {this.state.images.length} images
                         </div>
                         <div style={{ display: "inline-block" }}>
-                            Page {this.state.page}
+                            Page {this.state.page} / {this.state.totalPages}
                         </div>
                         <div style={{ display: "inline-block" }}>
                             <button className="ui left attached button" onClick={(e) => {this.loadPage(this.state.page - 1)}}>Prev</button>

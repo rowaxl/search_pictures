@@ -25,7 +25,7 @@ const imageListStyle = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
     gridGap: "0px 5px",
-    gridAutoRows: "2px"
+    gridAutoRows: "0.5px"
 }
 
 export default ImageList;
