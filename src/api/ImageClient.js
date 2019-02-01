@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class ImageClient {
-    static searchImage = (query) => {
+    static searchImage = (query, page) => {
         return axios.get('https://api.unsplash.com/search/photos', {
             params: {
                 query
