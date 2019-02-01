@@ -7,14 +7,25 @@ import ImageList from './ImageList';
 class App extends React.Component {
     state = {
         images: [],
+        term: '',
         page: 0
     }
 
     onSearchSubmit = async (term) => {
-        const { data } = await ImageClient.searchImage(term, this.state.page);
+        const { data } = await ImageClient.searchImage(term, 1);
         this.setState({
             images: data.results,
-            page: (this.state.page++)
+            term,
+            page: 1
+        });
+    }
+
+    loadPage = async (target) => {
+        console.log('this.state: ', this.state);
+        const { data } = await ImageClient.searchImage(this.state.term, target);
+        this.setState({
+            images: data.results,
+            page: target
         })
     }
 
@@ -25,12 +36,14 @@ class App extends React.Component {
                     <SearchBar onSubmit={this.onSearchSubmit} />
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <div style={{ display: "inline-block" }}>
-                            Found {this.state.images.length} images /
+                            Found {this.state.images.length} images
+                        </div>
+                        <div style={{ display: "inline-block" }}>
                             Page {this.state.page}
                         </div>
                         <div style={{ display: "inline-block" }}>
-                            <button class="ui left attached button">Prev</button>
-                            <button class="right attached ui button">Next</button>
+                            <button className="ui left attached button" onClick={(e) => {this.loadPage(this.state.page - 1)}}>Prev</button>
+                            <button className="right attached ui button" onClick={(e) => {this.loadPage(this.state.page + 1)}}>Next</button>
                         </div>
                     </div>
                 </div>
