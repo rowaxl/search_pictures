@@ -8,7 +8,8 @@ class App extends React.Component {
     state = {
         images: [],
         term: '',
-        page: 0
+        page: 0,
+        totalPages: 0
     }
 
     onSearchSubmit = async (term) => {
@@ -16,12 +17,13 @@ class App extends React.Component {
         this.setState({
             images: data.results,
             term,
-            page: 1
+            page: 1,
+            totalPages: data.total_pages
         });
     }
 
     loadPage = async (target) => {
-        console.log('this.state: ', this.state);
+        if (target < 1 || target > this.state.totalPages) return;
         const { data } = await ImageClient.searchImage(this.state.term, target);
         this.setState({
             images: data.results,
