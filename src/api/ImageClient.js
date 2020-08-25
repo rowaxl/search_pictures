@@ -8,7 +8,7 @@ class ImageClient {
                 page
             },
             headers: {
-                Authorization: 'Client-ID ' + process.env['API_KEY']
+                Authorization: 'Client-ID ' + process.env['REACT_APP_PIC_API_KEY']
             }
         });
     }
