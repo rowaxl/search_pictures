@@ -78,7 +78,7 @@ const App = () => {
     return (
         <Container className={styles.root}>
             <Typography variant="h4" color="textPrimary">
-                Search Images by keyword!
+                Let's Search Beautiful Photos!
             </Typography>
 
             <SearchBar onSubmit={onSearchSubmit} />
