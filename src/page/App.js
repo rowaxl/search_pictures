@@ -68,7 +68,7 @@ const App = () => {
     return (
         <Container className={styles.root}>
             <Typography variant="h4" color="textPrimary">
-                Let's Search Beautiful Photos!
+                Let's Search for Beautiful Photos!
             </Typography>
 
             <SearchBar onSubmit={onSearchSubmit} />
@@ -79,10 +79,10 @@ const App = () => {
                 </Typography>
 
                 <div>
-                    <IconButton color="primary" onClick={() => { loadPage(currentPage - 1) }}>
+                    <IconButton color="secondary" onClick={() => { loadPage(currentPage - 1) }}>
                         <PreviousIcon fontSize="large" />
                     </IconButton>
-                    <IconButton color="primary" onClick={() => { loadPage(currentPage + 1) }}>
+                    <IconButton color="secondary" onClick={() => { loadPage(currentPage + 1) }}>
                         <NextIcon fontSize="large" />
                     </IconButton>
                 </div>
