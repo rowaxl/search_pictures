@@ -2,7 +2,8 @@ import React from 'react'
 import {
     GridList,
     useMediaQuery,
-    GridListTile
+    GridListTile,
+    CircularProgress
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
@@ -19,9 +20,20 @@ const useStyles = makeStyles(() => ({
         height: '100%',
         background: 'transparent'
     },
+    loadingWrap: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'rgba(0, 0, 0, 0.58)',
+    }
 }))
 
-const ImageList = ({ images, onClickTile }) => {
+const ImageList = ({ images, onClickTile, isLoading }) => {
     const styles = useStyles()
     const breakpoints = useMediaQuery('(min-width: 768px)')
 
@@ -33,11 +45,15 @@ const ImageList = ({ images, onClickTile }) => {
 
     return (
         <div className={styles.root}>
-            <GridList
-                cellHeight={450}
-                cols={breakpoints ? 6 : 2}
-                spacing={4}
-            >
+            { isLoading
+                ? <div className={styles.loadingWrap}>
+                    <CircularProgress size={400} color="secondary" />
+                </div>
+                : <GridList
+                    cellHeight={450}
+                    cols={breakpoints ? 6 : 2}
+                    spacing={4}
+                >
                 {images.map(image=> (
                     <GridListTile
                         key={image.id}
@@ -50,7 +66,8 @@ const ImageList = ({ images, onClickTile }) => {
                         />
                     </GridListTile>
                 ))}
-            </GridList>
+                </GridList>
+            }
         </div>
     );
 }

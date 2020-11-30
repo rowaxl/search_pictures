@@ -8,6 +8,7 @@ import {
   CardMedia,
   CardContent,
   IconButton,
+  CircularProgress,
 } from '@material-ui/core'
 import { CloseOutlined as CloseIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
@@ -38,17 +39,34 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 10,
     right: 10,
-  }
+  },
+  loadingWrap: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'rgba(0, 0, 0, 0.58)',
+}
 }))
 
-const ImageModal = ({ image, open, handleClose }) => {
+const ImageModal = ({ image, open, handleClose, isLoading }) => {
   const styles = useStyles()
+
+  if (!image) {
+    return <></>
+  }
 
   return (
     <>
     {
-      image === null
-        ? <></>
+      isLoading
+        ? <div className={styles.loadingWrap}>
+            <CircularProgress size={400} color="secondary" />
+          </div>
         : <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

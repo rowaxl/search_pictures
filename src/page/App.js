@@ -11,13 +11,11 @@ import {
 } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 
-import {
-    searchImagesByQuery,
-    getImageDetail
-} from '../api/ImageClient'
 import SearchBar from '../components/SearchBar'
 import ImageList from '../components/ImageList'
 import ImageModal from '../components/ImageModal'
+
+import { useSearchImages, useGetImageDetail } from '../hooks/useGetImages'
 
 import '../styles/global.css'
 
@@ -37,41 +35,33 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
     const styles = useStyles()
 
-    const [images, setImages] = useState([])
     const [query, setQuery] = useState('')
     const [currentPage, setCurrentPage] = useState(0)
-    const [totalPages, setTotalPages] = useState(0)
 
-    const [selectedImage, setSelectedImage] = useState(null)
+    const [selectedImageId, setSelectedImageId] = useState(null)
     const [openImageModal, setOpenImageModal] = useState(false)
 
-    const onSearchSubmit = async (query) => {
-        const { data } = await searchImagesByQuery(query, 1);
+    const [searchData, searchTotalPages, searchLoading] = useSearchImages(query, currentPage)
+    const [detailData, detailLoading] = useGetImageDetail(selectedImageId)
 
-        setImages(data.results)
+    const onSearchSubmit = (query) => {
         setQuery(query)
         setCurrentPage(1)
-        setTotalPages(data.total_pages)
     }
 
-    const loadPage = async (targetPage) => {
-        if (targetPage < 1 || targetPage > totalPages) return;
+    const loadPage = (targetPage) => {
+        if (targetPage < 1 || targetPage > searchTotalPages) return
 
-        const { data } = await searchImagesByQuery(query, targetPage);
-
-        setImages(data.results)
         setCurrentPage(targetPage)
     }
 
-    const showFullImage = async (id) => {
-        const { data } = await getImageDetail(id)
-
-        setSelectedImage(data)
+    const showFullImage = (id) => {
+        setSelectedImageId(id)
         setOpenImageModal(true)
     }
 
     const closeImageModal = () => {
-        setSelectedImage(null)
+        setSelectedImageId('')
         setOpenImageModal(false)
     }
 
@@ -85,10 +75,7 @@ const App = () => {
 
             <div className={styles.optionBar}>
                 <Typography variant="h6" color="textPrimary">
-                    Showing {images.length} images
-                </Typography>
-                <Typography variant="h6" color="textPrimary">
-                    Page {currentPage} / {totalPages}
+                    Page {currentPage} / {searchTotalPages}
                 </Typography>
 
                 <div>
@@ -101,9 +88,9 @@ const App = () => {
                 </div>
             </div>
 
-            <ImageList images={images} onClickTile={showFullImage} />
+            <ImageList images={searchData} onClickTile={showFullImage} isLoading={searchLoading} />
 
-            <ImageModal image={selectedImage} open={openImageModal} handleClose={closeImageModal} />
+            <ImageModal image={detailData} open={openImageModal} handleClose={closeImageModal} isLoading={detailLoading} />
         </Container>
     )
 }
