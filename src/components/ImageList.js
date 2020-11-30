@@ -1,31 +1,58 @@
-import React from 'react';
-import ImageCard from './ImageCard';
+import React from 'react'
+import {
+    GridList,
+    useMediaQuery,
+    GridListTile
+} from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 
-class ImageList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.props = props;
+const useStyles = makeStyles(() => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: 'transparent',
+    },
+    gridList: {
+        width: '100%',
+        height: '100%',
+        background: 'transparent'
+    },
+}))
+
+const ImageList = ({ images, onClickTile }) => {
+    const styles = useStyles()
+    const breakpoints = useMediaQuery('(min-width: 768px)')
+
+    const calcAspect = (width, height) => {
+        if (width < height) return 1
+
+        return Math.ceil(width / height)
     }
 
-    render() {
-        const imageList = this.props.images.map(
-            image => <ImageCard source={image} key={image.id} />
-        );
-
-        return (
-            <div className="ui container" style={imageListStyle}>
-                {imageList}
-            </div>
-        );
-    }
-}
-
-const imageListStyle = {
-    marginTop: "10px",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-    gridGap: "0px 5px",
-    gridAutoRows: "0.5px"
+    return (
+        <div className={styles.root}>
+            <GridList
+                cellHeight={450}
+                cols={breakpoints ? 6 : 2}
+                spacing={4}
+            >
+                {images.map(image=> (
+                    <GridListTile
+                        key={image.id}
+                        cols={calcAspect(image.width, image.height)}
+                        onClick={() => onClickTile(image.id)}
+                    >
+                        <img
+                            src={image.urls.thumb}
+                            alt={image.description}
+                        />
+                    </GridListTile>
+                ))}
+            </GridList>
+        </div>
+    );
 }
 
 export default ImageList;

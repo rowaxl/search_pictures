@@ -1,10 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ThemeProvider } from '@material-ui/core'
+import { StylesProvider, createMuiTheme } from '@material-ui/core/styles'
+import App from './page/App'
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
 
 ReactDOM.render(
-    <App />,
+    <React.Fragment>
+        <StylesProvider injectFirst>
+            <ThemeProvider theme={darkTheme}>
+                <App />
+            </ThemeProvider>
+        </StylesProvider>
+    </React.Fragment>,
     document.querySelector('#root')
 );
-
-console.log(process.env['REACT_APP_PIC_API_KEY'])
