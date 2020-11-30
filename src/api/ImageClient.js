@@ -18,7 +18,5 @@ export const searchImagesByQuery = async (query, page) => {
 export const getImageDetail = async (id) => {
     const res = await axiosClient.get(`/photos/${id}`)
 
-    console.log(res)
-
     return res
 }

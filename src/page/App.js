@@ -46,7 +46,6 @@ const App = () => {
     const [openImageModal, setOpenImageModal] = useState(false)
 
     const onSearchSubmit = async (query) => {
-        console.log({ query })
         const { data } = await searchImagesByQuery(query, 1);
 
         setImages(data.results)

@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '90vh',
     maxWidth: '90vw',
 
-    '& img, & source': {
+    '& img': {
       width: '100%',
-      height: '100%'
+      maxHeight: '80vh'
     },
     position: 'relative'
   },
@@ -63,12 +63,11 @@ const ImageModal = ({ image, open, handleClose }) => {
           >
             <Fade in={open}>
               <Card className={styles.modalImageWrap}>
-                <CardMedia>
-                  <picture>
-                    <source srcSet={image.urls.full} alt={image.description} media="(min-width: 768px)" />
-                    <img src={image.urls.regular} alt={image.description} />
-                  </picture>
-                </CardMedia>
+                <CardMedia
+                  component="img"
+                  alt={image.description}
+                  image={image.urls.regular}
+                />
 
                 <CardContent>
                   <Link href={image.links.html} color="textPrimary" target="_blank" referrerPolicy="no-referrer">
@@ -76,13 +75,13 @@ const ImageModal = ({ image, open, handleClose }) => {
                   </Link>
                 </CardContent>
 
-                <IconButton className={styles.closeButton} onClick={handleClose} size="large" color="secondary">
+                <IconButton className={styles.closeButton} onClick={handleClose} size="medium" color="secondary">
                   <CloseIcon />
                 </IconButton>
               </Card>
             </Fade>
           </Modal>
-        }``
+        }
     </>
   )
 }

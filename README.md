@@ -1,6 +1,14 @@
-# Photo Searcher
-React based photo search application powered by [Unsplash](https://unsplash.com/)
+# Image Browser
+
+## Overview
+![](overview.png)
+
+Simple React based image search and viewer powerd by Unsplash
+
+## Deployment
+
 
 ## Installation
-- run `yarn install` or `npm install`
-- set Unsplash's API key on `.env`
+- Go to [Unsplash](https://unsplash.com/documentation) and make an account
+- Get API key and set on `.env` file
+- Run on your local environment
